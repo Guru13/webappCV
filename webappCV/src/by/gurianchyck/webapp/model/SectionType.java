@@ -5,9 +5,19 @@ package by.gurianchyck.webapp.model;
  * 09.09.2015.
  */
 public enum SectionType {
-    OBJECTIVE,
-    ACHIEVEMENT,
-    QUALIFICATION,
-    EXPERIENCE,
-    EDUCATION
+    OBJECTIVE("Позиция"),
+    ACHIEVEMENT("Достижения"),
+    QUALIFICATION("Квалификация"),
+    EXPERIENCE("Опыт работы"),
+    EDUCATION("Образование");
+
+    private String title;
+
+    SectionType(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }

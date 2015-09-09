@@ -5,6 +5,6 @@ package by.gurianchyck.webapp.model;
  * 08.09.2015.
  */
 public class Section {
-   private SectionType type;
+   protected SectionType type;
 
 }

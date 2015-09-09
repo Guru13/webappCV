@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Alexey Gurianchyck
  * 07.09.2015.
  */
-public class Achievement {
+public class Achievement  extends Section{
     private List<String> listAchievement;
 
     public Achievement() {

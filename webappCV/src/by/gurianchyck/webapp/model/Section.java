@@ -7,4 +7,18 @@ package by.gurianchyck.webapp.model;
 public class Section {
    protected SectionType type;
 
+   public Section() {
+   }
+
+   public Section(SectionType type) {
+      this.type = type;
+   }
+
+   public SectionType getType() {
+      return type;
+   }
+
+   public void setType(SectionType type) {
+      this.type = type;
+   }
 }

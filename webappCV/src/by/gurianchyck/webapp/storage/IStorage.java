@@ -9,7 +9,7 @@ import java.util.Collection;
  * Created by Alexey Gurianchyck
  * 10.09.2015.
  */
-public interface IStotage {
+public interface IStorage {
     void clear();
     void save(Resume resume) throws WebappException;
     void update(Resume resume);

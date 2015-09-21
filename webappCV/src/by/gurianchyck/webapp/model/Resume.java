@@ -2,13 +2,14 @@ package by.gurianchyck.webapp.model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
  * Created by Alexey Gurianchyck
  * 06.09.2015.
  */
-public class Resume {
+public class Resume implements Comparable<Resume>{
     private String uuid;
     private String fullName;
     private String location;
@@ -16,8 +17,11 @@ public class Resume {
     private List<Contact> contacts = new LinkedList<>();
     private List<Section> sections = new LinkedList<>();
 
+    public Resume() {
+    }
+
     public Resume(String fullName, String location) {
-       this(UUID.randomUUID().toString(),fullName, location);
+       this(UUID.randomUUID().toString(), fullName, location);
     }
 
     public Resume(String uuid, String fullName, String location) {
@@ -26,21 +30,6 @@ public class Resume {
         this.location = location;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Resume resume = (Resume) o;
-
-        return uuid.equals(resume.uuid);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return uuid.hashCode();
-    }
 
     public void addSection(Section section){
         sections.add(section);
@@ -70,5 +59,40 @@ public class Resume {
 
     public List<Section> getSections() {
         return sections;
+    }
+
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setHomePage(String homePage) {
+        this.homePage = homePage;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final Resume other = (Resume) obj;
+        return Objects.equals(this.uuid, other.uuid);
+    }
+
+    @Override
+    public int compareTo(Resume o) {
+        return fullName.compareTo(o.fullName);
     }
 }

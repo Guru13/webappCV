@@ -1,22 +1,19 @@
 package by.gurianchyck.webapp.model;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Alexey Gurianchyck
  * 06.09.2015.
  */
-public class Resume implements Comparable<Resume>{
+public class Resume { //implements Comparable<Resume>{
     private String uuid;
     private String fullName;
     private String location;
     private String homePage;
-    private List<Contact> contacts = new LinkedList<>();
+//    private List<Contact> contacts = new LinkedList<>();
     private List<Section> sections = new LinkedList<>();
-
+    private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
     public Resume() {
     }
 
@@ -34,8 +31,11 @@ public class Resume implements Comparable<Resume>{
     public void addSection(Section section){
         sections.add(section);
     }
-    public void addContact(Contact contact){
-        contacts.add(contact);
+    public void addContact(ContactType type, String value){
+        contacts.put(type, value);
+    }
+    public String getContact(ContactType type){
+        return contacts.get(type);
     }
     public String getUuid() {
         return uuid;
@@ -53,7 +53,7 @@ public class Resume implements Comparable<Resume>{
         return homePage;
     }
 
-    public List<Contact> getContacts() {
+    public Map<ContactType, String> getContacts() {
         return contacts;
     }
 
@@ -91,8 +91,18 @@ public class Resume implements Comparable<Resume>{
         return Objects.equals(this.uuid, other.uuid);
     }
 
-    @Override
+//    @Override
     public int compareTo(Resume o) {
         return fullName.compareTo(o.fullName);
     }
+
+//    private String getEmail(Resume o1) {
+//        List<Contact> list = o1.getContacts();
+//        for (Contact c : list){
+//            if (c.getType() == ContactType.MAIL){
+//                return c.getValue();
+//            }
+//        }
+//        return null;
+//    }
 }

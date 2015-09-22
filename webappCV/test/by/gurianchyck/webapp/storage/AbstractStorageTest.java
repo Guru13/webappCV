@@ -1,7 +1,6 @@
 package by.gurianchyck.webapp.storage;
 
 import by.gurianchyck.webapp.WebappException;
-import by.gurianchyck.webapp.model.Contact;
 import by.gurianchyck.webapp.model.ContactType;
 import by.gurianchyck.webapp.model.Resume;
 import org.junit.Assert;
@@ -10,7 +9,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -32,16 +30,16 @@ public class AbstractStorageTest {
     @Before
     public void before(){
         R1 = new Resume("full name 1", "location 1");
-        R1.addContact(new Contact(ContactType.MAIL, "mail@ya.ru"));
-        R1.addContact(new Contact(ContactType.PHONE, "11111"));
+        R1.addContact(ContactType.MAIL, "mail@ya.ru");
+        R1.addContact(ContactType.PHONE, "11111");
 
         R2 = new Resume("full name 2", "location 2");
-        R2.addContact(new Contact(ContactType.SKYPE, "skype2"));
-        R2.addContact(new Contact(ContactType.PHONE, "11111"));
+        R2.addContact(ContactType.SKYPE, "skype2");
+        R2.addContact(ContactType.PHONE, "11111");
 
         R3 = new Resume("full name 3", "location 3");
-        R3.addContact(new Contact(ContactType.MAIL, "mail@ya.ru"));
-        R3.addContact(new Contact(ContactType.PHONE, "11111"));
+        R3.addContact(ContactType.MAIL, "mail@ya.ru");
+        R3.addContact(ContactType.PHONE, "11111");
         storage.clear();
         storage.save(R3);
         storage.save(R1);
@@ -69,7 +67,7 @@ public class AbstractStorageTest {
 
     @Test
     public void testUpdate() throws Exception {
-        R1.addContact(new Contact(ContactType.ICQ, "icq"));
+        R1.addContact(ContactType.ICQ, "icq");
         storage.update(R1);
         Assert.assertEquals(R1, storage.load(R1.getUuid()));
 
@@ -114,7 +112,7 @@ public class AbstractStorageTest {
 //        Arrays.sort(src);
 //        Assert.assertArrayEquals(src, storage.getAllSorted().toArray());
         List<Resume> list = Arrays.asList(R1, R2, R3);
-        Collections.sort(list);
+//        Collections.sort(list);
         assertEquals(list, storage.getAllSorted());
 
     }

@@ -1,11 +1,12 @@
 package by.gurianchyck.webapp.storage;
 
 import by.gurianchyck.webapp.WebappException;
+import by.gurianchyck.webapp.model.ContactType;
 import by.gurianchyck.webapp.model.Resume;
-import by.gurianchyck.webapp.storage.IStorage;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -31,8 +32,8 @@ public abstract class AbstractStorage implements IStorage {
     @Override
     public void save(Resume resume) {
         logger.info("Save resume with uuid=" + resume.getUuid());
-        if (exist(resume.getUuid())){
-            throw new WebappException("Resume "  + resume.getUuid() + " not exist", resume);
+        if (exist(resume.getUuid())) {
+            throw new WebappException("Resume " + resume.getUuid() + " not exist", resume);
         }
         doSave(resume);
     }
@@ -77,12 +78,17 @@ public abstract class AbstractStorage implements IStorage {
     public Collection<Resume> getAllSorted() {
         logger.info("getAllSorted");
         List<Resume> list = doGetAll();
-        Collections.sort(list);
+        Collections.sort(list, (Resume o1, Resume o2) -> {
+            int cmp = o1.getFullName().compareTo(o2.getFullName());
+            if (cmp != 0) return cmp;
+            return o1.getUuid().compareTo(o2.getUuid());
+        });
         return list;
 //        return Collections.singletonList(new Resume());
     }
 
+
     protected abstract List<Resume> doGetAll();
 
-   public abstract int size();
+    public abstract int size();
 }

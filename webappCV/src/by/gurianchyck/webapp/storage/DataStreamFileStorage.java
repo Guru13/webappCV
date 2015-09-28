@@ -19,9 +19,10 @@ public class DataStreamFileStorage extends FileStorage {
         super(path);
     }
 
-    protected void write(File file, Resume resume) {
-        try (FileOutputStream fos = new FileOutputStream(file);
-             final DataOutputStream dos = new DataOutputStream(fos)) {
+    @Override
+    protected void write(OutputStream os, Resume resume) throws IOException {
+        try (final DataOutputStream dos = new DataOutputStream(os)) {
+            writeString(dos, resume.getUuid());
             writeString(dos, resume.getFullName());
             writeString(dos, resume.getLocation());
             writeString(dos, resume.getHomePage());
@@ -64,16 +65,14 @@ public class DataStreamFileStorage extends FileStorage {
                         break;
                 }
             }
-        } catch (IOException e) {
-            throw new WebappException("Couldn't create new file  " + file.getAbsolutePath(), e, resume);
         }
     }
 
-    protected Resume read(File file) {
+    @Override
+    protected Resume read(InputStream is) throws IOException {
         Resume resume = new Resume();
-        try (FileInputStream fis = new FileInputStream(file);
-             DataInputStream dis = new DataInputStream(fis)) {
-
+        try (DataInputStream dis = new DataInputStream(is)) {
+            resume.setUuid(readString(dis));
             resume.setFullName(readString(dis));
             resume.setLocation(readString(dis));
             resume.setHomePage(readString(dis));
@@ -81,8 +80,8 @@ public class DataStreamFileStorage extends FileStorage {
             for (int i = 0; i < contactsSize; i++) {
                 resume.addContact(ContactType.VALUES[dis.readInt()], readString(dis));
             }
-            resume.setUuid(file.getName());
-           int sectionsSize = dis.readInt();
+
+            int sectionsSize = dis.readInt();
             for (int i = 0; i < sectionsSize; i++) {
                 SectionType sectionType = SectionType.valueOf(readString(dis));
                 switch (sectionType){
@@ -99,11 +98,10 @@ public class DataStreamFileStorage extends FileStorage {
                         break;
                 }
             }
-        } catch (IOException e) {
-            throw new WebappException("Couldn't create new file  " + file.getAbsolutePath(), e, resume);
         }
         return resume;
     }
+
     public void writeString(DataOutputStream dos, String str) throws IOException {
         dos.writeUTF(str == null ? NULL :str);
     }

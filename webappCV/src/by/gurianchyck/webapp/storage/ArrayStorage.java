@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * Created by Alexey Gurianchyck
  * 10.09.2015.
  */
-public class ArrayStorage extends AbstractStorage {
+public class ArrayStorage extends AbstractStorage<Integer> {
     private static final int LIMIT = 100;
     //    protected Logger logger = Logger.getLogger(getClass().getName());
 //    private static Logger LOGGER = Logger.getLogger(ArrayStorage.class.getName());
@@ -25,8 +25,8 @@ public class ArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean exist(String uuid) {
-        return getIndex(uuid) != -1;
+    protected boolean exist(Integer idx) {
+        return idx != -1;
     }
 
     @Override
@@ -36,26 +36,22 @@ public class ArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doSave(Resume resume) {
+    protected void doSave(Integer ctx, Resume resume) {
         resumes[size++] = resume;
     }
 
     @Override
-    public void doUpdate(Resume resume) {
-        int idx = getIndex(resume.getUuid());
+    protected void doUpdate(Integer idx, Resume resume) {
         resumes[idx] = resume;
     }
 
-
     @Override
-    public Resume doLoad(String uuid) {
-        int idx = getIndex(uuid);
+    protected Resume doLoad(Integer idx) {
         return resumes[idx];
     }
 
     @Override
-    public void doDelete(String uuid) {
-        int idx = getIndex(uuid);
+    protected void doDelete(Integer idx) {
         int numMoved = size - idx - 1;
         if (numMoved > 0)
             System.arraycopy(resumes, idx + 1, resumes, idx,
@@ -80,7 +76,8 @@ public class ArrayStorage extends AbstractStorage {
         return size;
     }
 
-    private int getIndex(String uuid) {
+    @Override
+    protected Integer getContext(String uuid) {
         for (int i = 0; i < LIMIT; i++) {
             if (resumes[i] != null) {
                 if (resumes[i].getUuid().equals(uuid)) {

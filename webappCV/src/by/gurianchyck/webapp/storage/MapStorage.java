@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by Alexey Gurianchyck
  * 21.09.2015.
  */
-public class MapStorage extends AbstractStorage{
+public class MapStorage extends AbstractStorage<String>{
 
     private Map<String, Resume> map = new HashMap<>();
 
@@ -27,13 +27,13 @@ public class MapStorage extends AbstractStorage{
     }
 
     @Override
-    protected void doSave(Resume resume) {
-        map.put(resume.getUuid(), resume);
+    protected void doSave(String uuid, Resume resume) {
+        map.put(uuid, resume);
     }
 
     @Override
-    protected void doUpdate(Resume resume) {
-        map.put(resume.getUuid(), resume);
+    protected void doUpdate(String uuid, Resume resume) {
+        map.put(uuid, resume);
     }
 
     @Override
@@ -54,5 +54,10 @@ public class MapStorage extends AbstractStorage{
     @Override
     public int size() {
         return map.size();
+    }
+
+    @Override
+    protected String getContext(String uuid) {
+        return uuid;
     }
 }

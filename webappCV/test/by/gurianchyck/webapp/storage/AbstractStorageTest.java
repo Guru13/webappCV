@@ -3,6 +3,7 @@ package by.gurianchyck.webapp.storage;
 import by.gurianchyck.webapp.WebappException;
 import by.gurianchyck.webapp.model.ContactType;
 import by.gurianchyck.webapp.model.Resume;
+import by.gurianchyck.webapp.model.SectionType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -44,6 +45,10 @@ public class AbstractStorageTest {
         storage.save(R3);
         storage.save(R1);
         storage.save(R2);
+//        R1.addObjective("Objective1");
+//        R1.addMultiTextSection(SectionType.ACHIEVEMENT,"Achievement1", "Achievement2");
+//        R1.addMultiTextSection(SectionType.QUALIFICATION,"Java", "SQL");
+        //TODO add  EXPERIENCE , EDUCATION
 
     }
     @Test

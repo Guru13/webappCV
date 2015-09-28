@@ -1,10 +1,12 @@
 package by.gurianchyck.webapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Alexey Gurianchyck
  * 09.09.2015.
  */
-public enum SectionType {
+public enum SectionType implements Serializable{
     OBJECTIVE("Позиция"),
     ACHIEVEMENT("Достижения"),
     QUALIFICATION("Квалификация"),

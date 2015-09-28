@@ -41,13 +41,14 @@ public class AbstractStorageTest {
         R3 = new Resume("full name 3", "location 3");
         R3.addContact(ContactType.MAIL, "mail@ya.ru");
         R3.addContact(ContactType.PHONE, "11111");
+
+        R1.addObjective("Objective1");
+        R1.addMultiTextSection(SectionType.ACHIEVEMENT,"Achievement1", "Achievement2");
+        R1.addMultiTextSection(SectionType.QUALIFICATION,"Java", "SQL");
         storage.clear();
         storage.save(R3);
         storage.save(R1);
         storage.save(R2);
-//        R1.addObjective("Objective1");
-//        R1.addMultiTextSection(SectionType.ACHIEVEMENT,"Achievement1", "Achievement2");
-//        R1.addMultiTextSection(SectionType.QUALIFICATION,"Java", "SQL");
         //TODO add  EXPERIENCE , EDUCATION
 
     }

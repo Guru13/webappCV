@@ -21,6 +21,10 @@ public class MultiTextSection extends Section{
         this.values = values;
     }
 
+    public List<String> getValues() {
+        return values;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(values);
